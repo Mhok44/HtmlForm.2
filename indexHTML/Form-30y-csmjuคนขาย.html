@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock ของ addmin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #f0f2f5, #e0e6ec); /* Soft, elegant gradient */
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px; /* Slightly wider container */
+            background: #ffffff;
+            padding: 30px; /* More padding for a spacious feel */
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Softer, larger shadow */
+            text-align: center;
+            margin-bottom: 25px; /* More margin */
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 8px 0; /* Reduced margin for tighter layout */
+            border: 1px solid #dcdcdc; /* Lighter border */
+            border-radius: 8px;
+            display: block;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #64b5f6; /* Highlight on focus */
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #4CAF50; /* Add button green */
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #43a047;
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px; /* More margin above table */
+            border-radius: 8px; /* Rounded corners for table */
+            overflow: hidden; /* Ensures rounded corners are visible */
+        }
+        table, th, td {
+            border: 1px solid #e0e0e0; /* Lighter table borders */
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            font-size: 15px;
+        }
+        th {
+            background: #3f51b5; /* Professional blue for table header */
+            color: white;
+            font-weight: bold;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9; /* Alternating row color */
+        }
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        tbody button {
+            background: #f44336; /* Remove button red */
+            padding: 8px 12px;
+            font-size: 14px;
+            border-radius: 6px;
+            width: auto; /* Auto width for smaller button */
+            margin: 0; /* Remove extra margin */
+        }
+        tbody button:hover {
+            background: #e53935;
+            transform: none; /* No lift for remove button */
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Stock ของ addmin</h2>
+    <input type="text" id="productName" placeholder="กรุณาใส่ชื่อสินค้า">
+    <input type="number" id="productStock" placeholder="กรุณาใส่จำนวนสินค้า">
+    <input type="text" id="productColor" placeholder="กรุณาระบุสี (เช่น แดง, น้ำเงิน)">
+    <input type="number" id="productSize" placeholder="กรุณาระบุขนาด (เช่น 42)" min="1" max="100">
+    <input type="number" id="productPrice" placeholder="กรุณาใส่ราคาสินค้า" >
+    <input type="file" id="productImage" placeholder="กรุณาใส่รูป" >
+    <button onclick="addProduct()">Add Product</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ชื่อสินค้า</th>
+          <th>จำนวน</th>
+          <th>สี</th>
+          <th>ขนาด</th>
+          <th>ราคาสินค้า</th>
+          <th>รูปภาพ</th>
+          <th>ลบ</th>
+          
+        </tr>
+      </thead>
+      <tbody id="productTable">
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function addProduct() {
+  let name = document.getElementById("productName").value;
+  let stock = document.getElementById("productStock").value;
+  let color = document.getElementById("productColor").value;
+  let size = document.getElementById("productSize").value;
+  let price = document.getElementById("productPrice").value;
+  let imageInput = document.getElementById("productImage");
+
+  // ตรวจสอบว่ามีไฟล์หรือไม่
+  let image = imageInput.files.length > 0 ? imageInput.files[0].name : "";
+
+  if (
+    name.trim() !== "" &&
+    stock.trim() !== "" &&
+    color.trim() !== "" &&
+    size.trim() !== "" &&
+    price.trim() !== "" &&
+    image !== ""
+  ) {
+    let table = document.getElementById("productTable");
+    let row = table.insertRow();
+
+    // แสดงชื่อไฟล์รูปแทนค่าของ input file
+    row.innerHTML = `<td>${name}</td><td>${stock}</td><td>${color}</td><td>${size}</td>
+                     <td>${price}</td><td>${image}</td><td><button onclick="removeProduct(this)">Remove</button></td>`;
+
+    // ล้างค่า input
+    document.getElementById("productName").value = "";
+    document.getElementById("productStock").value = "";
+    document.getElementById("productColor").value = "";
+    document.getElementById("productSize").value = "";
+    document.getElementById("productPrice").value = "";
+    imageInput.value = "";
+  } else {
+    alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+  }
+}
+
+
+    function removeProduct(button) {
+      let row = button.parentNode.parentNode;
+      row.remove();
+    }
+  </script>
+</body>
+</html>

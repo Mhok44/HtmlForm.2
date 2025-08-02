@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Order Form</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Soft, elegant background gradient */
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Ensure it takes full viewport height */
+      margin: 0;
+    }
+    form {
+      background: white;
+      padding: 40px; /* Increased padding */
+      border-radius: 15px; /* More rounded corners */
+      width: 100%;
+      max-width: 650px; /* Slightly wider form */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* More pronounced, softer shadow */
+      box-sizing: border-box; /* Include padding in width calculation */
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px; /* More space below heading */
+      color: #333;
+      font-size: 2em; /* Larger heading */
+    }
+    label {
+      display: block;
+      margin-top: 18px; /* More space above labels */
+      margin-bottom: 5px; /* Space between label and input */
+      font-weight: bold;
+      color: #555;
+      font-size: 0.95em;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px; /* Increased padding inside inputs */
+      border: 1px solid #ced4da; /* Lighter, subtle border */
+      border-radius: 8px; /* More rounded input corners */
+      font-size: 1em;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for focus */
+      box-sizing: border-box; /* Include padding in width calculation */
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #80bdff; /* Blue border on focus */
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Light blue shadow on focus */
+      outline: none; /* Remove default outline */
+    }
+    textarea {
+      resize: vertical; /* Allow vertical resizing */
+      min-height: 60px; /* Minimum height for textarea */
+    }
+    button {
+      margin-top: 30px; /* More space above button */
+      padding: 15px; /* Larger button padding */
+      background: #007bff; /* Primary blue button */
+      color: white;
+      border: none;
+      border-radius: 8px; /* More rounded button corners */
+      width: 100%;
+      font-size: 1.1em; /* Larger font size for button */
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); /* Button shadow */
+    }
+    button:hover {
+      background: #0056b3; /* Darker blue on hover */
+      transform: translateY(-2px); /* Slight lift effect */
+    }
+    .slip-name {
+      font-size: 0.85em;
+      color: #777;
+      margin-top: 8px; /* Space below file input */
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="customerForm">
+    <h2> ขายของที่ระลึก 30ปี สาขาวิชาวิทยาการคอมพิวเตอร์ </h2>
+
+    <label for="fullName">ชื่อ - นามสกุล</label>
+    <input type="text" id="fullName" required>
+
+    <label for="address">ที่อยู่</label>
+    <textarea id="address" rows="3" required></textarea>
+
+    <label for="phone">เบอร์โทรศัพท์</label>
+    <input type="tel" id="phone" required pattern="[0-9]{10}" placeholder="เช่น 0812345678">
+
+    <label for="product">เลือกรายการสินค้า</label>
+    <select id="product" required>
+      <option value="">-- กรุณาเลือกสินค้า --</option>
+      <option value="เสื้อ">เสื้อ</option>
+      <option value="กระเป๋า">กระเป๋า</option>
+      <option value="แก้ว">แก้ว</option>
+      <option value="ร่ม">ร่ม</option>
+      <option value="เข็มกลัด">เข็มกลัด</option>
+      <option value="สมุด">สมุด</option>
+      <option value="ปากกา">ปากกา</option>
+    </select>
+
+    <label for="productDetail">รายละเอียดเพิ่มเติมของสินค้า</label>
+    <textarea id="productDetail" rows="2"></textarea>
+
+    <label for="slip">แนบรูปสลิปโอนเงิน</label>
+    <input type="file" id="slip" accept="image/*">
+    <div class="slip-name" id="slipName">ยังไม่มีไฟล์แนบ</div>
+
+    <label for="purchaseDate">วันที่สั่งซื้อ</label>
+    <input type="date" id="purchaseDate" required>
+
+    <label for="delivery">เลือกวิธีรับสินค้า</label>
+    <select id="delivery" required>
+      <option value="">-- เลือกวิธีการรับสินค้า --</option>
+      <option value="จัดส่ง">จัดส่ง</option>
+      <option value="รับเอง">รับเอง</option>
+    </select>
+
+    <label for="payment">ช่องทางชำระเงิน</label>
+    <select id="payment" required>
+      <option value="">-- เลือกช่องทางชำระเงิน --</option>
+      <option value="โอนเงิน">โอนเงิน</option>
+      <option value="เก็บเงินปลายทาง">เก็บเงินปลายทาง</option>
+      <option value="ชำระด้วยบัตรเครดิต">ชำระด้วยบัตรเครดิต</option>
+    </select>
+
+    <button type="submit">ส่งข้อมูล</button>
+  </form>
+
+  <script>
+    // แสดงชื่อไฟล์สลิป
+    document.getElementById("slip").addEventListener("change", function () {
+      const fileName = this.files.length ? this.files[0].name : "ยังไม่มีไฟล์แนบ";
+      document.getElementById("slipName").textContent = fileName;
+    });
+
+    // ตัวอย่างการดัก submit
+    document.getElementById("customerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("ส่งข้อมูลลูกค้าเรียบร้อยแล้ว ✅ ");
+      // TODO: คุณสามารถส่งข้อมูลไปเก็บในฐานข้อมูลได้ที่นี่
+      this.reset();
+      document.getElementById("slipName").textContent = "ยังไม่มีไฟล์แนบ";
+    });
+  </script>
+
+</body>
+</html>
